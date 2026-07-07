@@ -309,50 +309,6 @@
             background: rgba(0, 212, 255, 0.05);
         }
 
-        /* Action Buttons */
-        .action-group {
-            display: flex;
-            gap: 0.8rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.75rem 2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition-fast);
-            border: none;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-cyan), #0091ea);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.2);
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 8px 35px rgba(0, 212, 255, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--accent-cyan);
-            border: 1.5px solid rgba(0, 212, 255, 0.4);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--accent-cyan);
-            background: rgba(0, 212, 255, 0.06);
-        }
-
         /* ========== Dashboard Page ========== */
         .dashboard-grid {
             display: grid;
@@ -713,7 +669,7 @@
         <div class="header-right">
             <div class="connection-pill" id="connPill">
                 <span class="pulse-dot" id="connDot"></span>
-                <span id="connLabel">Standby</span>
+                <span id="connLabel"></span>
             </div>
             <button class="dashboard-btn" id="dashboardBtn" onclick="toggleDashboard()">
                 <i class="fas fa-chart-line"></i> Dashboard
@@ -752,15 +708,6 @@
                 <div class="feature-chip">
                     <i class="fas fa-shield-alt"></i> Secure Link
                 </div>
-            </div>
-
-            <div class="action-group">
-                <button class="btn btn-primary" onclick="openAuth('signin')">
-                    <i class="fas fa-sign-in-alt"></i> Sign In
-                </button>
-                <button class="btn btn-outline" onclick="openAuth('signup')">
-                    <i class="fas fa-user-plus"></i> Create Account
-                </button>
             </div>
         </div>
     </div>
@@ -912,7 +859,7 @@
                     <input type="text" class="input-field" placeholder="Full name" id="authName">
                     <input type="text" class="input-field" placeholder="Ground station ID" id="authStationId">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.5rem;">
+                <button type="submit" class="btn-sm btn-cyan" style="margin-top:0.5rem;">
                     <span id="authSubmitLabel">Sign In</span>
                 </button>
             </form>
@@ -948,15 +895,8 @@
         }
 
         function toggleDashboard() {
-            dashboardVisible = !dashboardVisible;
-            if (dashboardVisible) {
-                document.getElementById('landingPage').classList.add('hidden');
-                document.getElementById('dashboardPage').classList.remove('hidden');
-                document.getElementById('dashboardBtn').innerHTML = '<i class="fas fa-home"></i> Home';
-                initMap();
-            } else {
-                goHome();
-            }
+            // Open auth modal instead of directly showing dashboard
+            openAuth('signin');
         }
 
         // ========== Auth ==========
@@ -986,11 +926,19 @@
         function handleAuth(event) {
             event.preventDefault();
             const email = document.getElementById('authEmail').value;
-            // In production, this would call your backend auth API
+            // In production, this would call backend auth API
             console.log('Auth attempt:', { mode: authMode, email });
             closeAuth();
-            // Auto-open dashboard after auth
-            if (!dashboardVisible) toggleDashboard();
+            // Show dashboard after auth
+            showDashboard();
+        }
+
+        function showDashboard() {
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById('dashboardPage').classList.remove('hidden');
+            document.getElementById('dashboardBtn').innerHTML = '<i class="fas fa-home"></i> Home';
+            dashboardVisible = true;
+            initMap();
         }
 
         // Close modal on overlay click
