@@ -2,8 +2,8 @@
   "name": "CephasGM SatTrack - Ground Terminal",
   "short_name": "SatTrack",
   "description": "Advanced satellite ground terminal monitoring and control system. Real-time tracking, antenna positioning, and telemetry dashboard.",
-  "start_url": "/index.html",
-  "scope": "/",
+  "start_url": "/sattrack/index.html",
+  "scope": "/sattrack/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#080c18",
@@ -94,7 +94,7 @@
       "name": "Dashboard",
       "short_name": "Dashboard",
       "description": "Open the ground terminal dashboard",
-      "url": "/dashboard.html",
+      "url": "/sattrack/dashboard.html"
       "icons": [
         {
           "src": "/icons/icon-96.png",
@@ -106,7 +106,7 @@
       "name": "Sign In",
       "short_name": "Sign In",
       "description": "Access your account",
-      "url": "/signin.html",
+      "url": "/sattrack/signin.html"
       "icons": [
         {
           "src": "/icons/icon-96.png",
