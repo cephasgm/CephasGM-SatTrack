@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0e27">
+    <meta name="description" content="CephasGM SatTrack - Create Account">
+    <title>CephasGM SatTrack | Sign Up</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-deep: #060b1a;
+            --bg-panel: rgba(8, 14, 35, 0.95);
+            --text-primary: #e8ecf4;
+            --text-secondary: #8892b0;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00e676;
+            --accent-amber: #ffab00;
+            --accent-red: #ff3d3d;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(0, 212, 255, 0.3);
+            --shadow-lg: 0 25px 70px rgba(0, 0, 0, 0.6);
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --transition-fast: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background - Earth from space */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop') center/cover no-repeat;
+            opacity: 0.10;
+            z-index: 0;
+            filter: saturate(0.5) brightness(0.6);
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(0, 180, 255, 0.05) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 70%, rgba(0, 200, 150, 0.04) 0%, transparent 55%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ========== Container ========== */
+        .auth-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 460px;
+            padding: 1.5rem;
+        }
+
+        /* ========== Card ========== */
+        .auth-card {
+            background: var(--bg-panel);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 2.2rem 2rem;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: -60%;
+            width: 220%;
+            height: 220%;
+            background: radial-gradient(circle at 50% 0%, rgba(0, 212, 255, 0.04) 0%, transparent 55%);
+            pointer-events: none;
+        }
+
+        /* ========== Logo & Brand ========== */
+        .brand-section {
+            margin-bottom: 1.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-wrap {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+
+        .logo-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--accent-cyan), #0077cc);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #fff;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.35);
+            position: relative;
+            z-index: 1;
+        }
+
+        .orbit-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 74px;
+            height: 74px;
+            border: 1.5px solid rgba(0, 212, 255, 0.2);
+            border-radius: 50%;
+            animation: spin-slow 14s linear infinite;
+        }
+
+        @keyframes spin-slow {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .brand-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: #fff;
+        }
+
+        .brand-name span {
+            background: linear-gradient(135deg, var(--accent-cyan), #7ce8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand-subtitle {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 0.15rem;
+        }
+
+        /* ========== Heading ========== */
+        .auth-heading {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-subheading {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            line-height: 1.5;
+        }
+
+        /* ========== Progress Steps ========== */
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            gap: 0.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: var(--transition-fast);
+        }
+
+        .step-dot.active {
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+        }
+
+        .step-dot.done {
+            background: var(--accent-green);
+        }
+
+        /* ========== Form ========== */
+        .form-step {
+            display: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: fadeSlideIn 0.35s ease;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 0.9rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.73rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper .input-icon {
+            position: absolute;
+            left: 14px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.7rem 1rem 0.7rem 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            color: #fff;
+            font-size: 0.88rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition-fast);
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.82rem;
+            z-index: 2;
+            padding: 4px;
+            transition: var(--transition-fast);
+        }
+
+        .password-toggle:hover {
+            color: #fff;
+        }
+
+        /* Password strength */
+        .password-strength {
+            margin-top: 0.4rem;
+            display: flex;
+            gap: 4px;
+        }
+
+        .strength-bar {
+            flex: 1;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            transition: var(--transition-fast);
+        }
+
+        .strength-bar.weak { background: var(--accent-red); }
+        .strength-bar.medium { background: var(--accent-amber); }
+        .strength-bar.strong { background: var(--accent-green); }
+
+        .strength-text {
+            font-size: 0.7rem;
+            margin-top: 0.25rem;
+            color: var(--text-secondary);
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            margin-top: 0.5rem;
+            text-align: left;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 2px;
+            accent-color: var(--accent-cyan);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            text-transform: none;
+            letter-spacing: 0;
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
+        .checkbox-group label a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        .checkbox-group label a:hover {
+            text-decoration: underline;
+        }
+
+        /* ========== Buttons ========== */
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: inherit;
+            position: relative;
+            z-index: 1;
+            margin-top: 0.8rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), #0077cc);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 35px rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-cyan);
+            border: 1.5px solid rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .btn-google {
+            background: #fff;
+            color: #1a1a1a;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-google:hover {
+            background: #f5f5f5;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .btn-google img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* ========== Divider ========== */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.2rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .divider-text {
+            font-size: 0.73rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ========== Footer Text ========== */
+        .auth-footer {
+            margin-top: 1.2rem;
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-footer a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+
+        .auth-footer a:hover {
+            color: #7ce8ff;
+            text-decoration: underline;
+        }
+
+        /* ========== Alert ========== */
+        .alert {
+            padding: 0.65rem 1rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+            display: none;
+            text-align: left;
+            position: relative;
+            z-index: 1;
+        }
+
+        .alert.error {
+            display: block;
+            background: rgba(255, 61, 61, 0.1);
+            border: 1px solid rgba(255, 61, 61, 0.3);
+            color: #ff6b6b;
+        }
+
+        .alert.success {
+            display: block;
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            color: #69f0ae;
+        }
+
+        /* ========== Back Link ========== */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin-bottom: 1.2rem;
+            transition: var(--transition-fast);
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 1.8rem 1.2rem;
+            }
+            .brand-name {
+                font-size: 1.15rem;
+            }
+            .auth-heading {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== Auth Container ========== -->
+    <div class="auth-container">
+        <div class="auth-card">
+            
+            <!-- Brand -->
+            <div class="brand-section">
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <div class="logo-wrap">
+                    <div class="orbit-ring"></div>
+                    <div class="logo-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                </div>
+                <div class="brand-name">CephasGM <span>SatTrack</span></div>
+                <div class="brand-subtitle">Ground Terminal System</div>
+            </div>
+
+            <!-- Heading -->
+            <h2 class="auth-heading">Create Your Account</h2>
+            <p class="auth-subheading">Set up your ground terminal station in under a minute</p>
+
+            <!-- Progress Steps -->
+            <div class="progress-steps" id="progressSteps">
+                <span class="step-dot active" data-step="1"></span>
+                <span class="step-dot" data-step="2"></span>
+            </div>
+
+            <!-- Alert -->
+            <div class="alert" id="alertBox"></div>
+
+            <!-- ========== Step 1: Account Details ========== -->
+            <form class="form-step active" id="step1">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input 
+                            type="text" 
+                            id="fullName" 
+                            class="input-field" 
+                            placeholder="John Doe" 
+                            required
+                            autocomplete="name"
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="input-field" 
+                            placeholder="you@example.com" 
+                            required
+                            autocomplete="email"
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="input-field" 
+                            placeholder="Min. 8 characters" 
+                            required
+                            minlength="8"
+                            autocomplete="new-password"
+                        >
+                        <button type="button" class="password-toggle" onclick="togglePassword('password', this)" title="Show password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength" id="strengthBars">
+                        <span class="strength-bar"></span>
+                        <span class="strength-bar"></span>
+                        <span class="strength-bar"></span>
+                        <span class="strength-bar"></span>
+                    </div>
+                    <span class="strength-text" id="strengthText"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-check-circle input-icon"></i>
+                        <input 
+                            type="password" 
+                            id="confirmPassword" 
+                            class="input-field" 
+                            placeholder="Re-enter password" 
+                            required
+                            autocomplete="new-password"
+                        >
+                    </div>
+                    <span class="strength-text" id="matchText"></span>
+                </div>
+
+                <button type="button" class="btn btn-primary" onclick="goToStep2()">
+                    Continue <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <!-- ========== Step 2: Station Setup ========== -->
+            <form class="form-step" id="step2" onsubmit="handleSignUp(event)">
+                <div class="form-group">
+                    <label for="stationId">Ground Station ID</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-broadcast-tower input-icon"></i>
+                        <input 
+                            type="text" 
+                            id="stationId" 
+                            class="input-field" 
+                            placeholder="e.g., GS-KENYA-001" 
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="stationLocation">Station Location (Optional)</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-map-marker-alt input-icon"></i>
+                        <input 
+                            type="text" 
+                            id="stationLocation" 
+                            class="input-field" 
+                            placeholder="City, Country"
+                        >
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="termsCheck" required>
+                    <label for="termsCheck">
+                        I agree to the <a href="#" onclick="event.preventDefault()">Terms of Service</a> and 
+                        <a href="#" onclick="event.preventDefault()">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="updatesCheck">
+                    <label for="updatesCheck">
+                        Send me updates about satellite passes and system improvements
+                    </label>
+                </div>
+
+                <div style="display: flex; gap: 0.6rem; margin-top: 1rem;">
+                    <button type="button" class="btn btn-outline" onclick="goToStep1()" style="flex:1;">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" style="flex:2;">
+                        <i class="fas fa-rocket"></i> Create Account
+                    </button>
+                </div>
+            </form>
+
+            <!-- Divider -->
+            <div class="divider" style="margin-top: 1.5rem;">
+                <div class="divider-line"></div>
+                <span class="divider-text">or sign up with</span>
+                <div class="divider-line"></div>
+            </div>
+
+            <!-- Google Sign Up -->
+            <button class="btn btn-google" onclick="handleGoogleSignUp()">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Sign up with Google
+            </button>
+
+            <!-- Footer -->
+            <p class="auth-footer">
+                Already have an account? 
+                <a href="signin.html">Sign in here</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // ========== State ==========
+        let currentStep = 1;
+        let signUpData = {};
+
+        // ========== Password Toggle ==========
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // ========== Password Strength ==========
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const bars = document.querySelectorAll('#strengthBars .strength-bar');
+            const text = document.getElementById('strengthText');
+            
+            let strength = 0;
+            
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+            if (password.match(/[0-9]/)) strength++;
+            if (password.match(/[^a-zA-Z0-9]/)) strength++;
+            
+            bars.forEach((bar, i) => {
+                bar.className = 'strength-bar';
+                if (i < strength) {
+                    if (strength <= 2) bar.classList.add('weak');
+                    else if (strength === 3) bar.classList.add('medium');
+                    else bar.classList.add('strong');
+                }
+            });
+            
+            const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+            text.textContent = strength > 0 ? labels[strength] : '';
+            
+            // Check password match
+            checkPasswordMatch();
+        });
+
+        document.getElementById('confirmPassword').addEventListener('input', checkPasswordMatch);
+
+        function checkPasswordMatch() {
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            const matchText = document.getElementById('matchText');
+            
+            if (confirm.length === 0) {
+                matchText.textContent = '';
+            } else if (password === confirm) {
+                matchText.textContent = '✓ Passwords match';
+                matchText.style.color = 'var(--accent-green)';
+            } else {
+                matchText.textContent = '✗ Passwords do not match';
+                matchText.style.color = 'var(--accent-red)';
+            }
+        }
+
+        // ========== Step Navigation ==========
+        function updateSteps(step) {
+            currentStep = step;
+            const dots = document.querySelectorAll('.step-dot');
+            dots.forEach((dot, i) => {
+                dot.className = 'step-dot';
+                if (i + 1 < step) dot.classList.add('done');
+                if (i + 1 === step) dot.classList.add('active');
+            });
+            
+            document.querySelectorAll('.form-step').forEach(f => f.classList.remove('active'));
+            document.getElementById('step' + step).classList.add('active');
+        }
+
+        function goToStep2() {
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validation
+            if (!fullName || !email || !password || !confirmPassword) {
+                showAlert('Please fill in all fields.', 'error');
+                return;
+            }
+            
+            if (fullName.length < 2) {
+                showAlert('Please enter your full name.', 'error');
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showAlert('Please enter a valid email address.', 'error');
+                return;
+            }
+            
+            if (password.length < 8) {
+                showAlert('Password must be at least 8 characters.', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showAlert('Passwords do not match.', 'error');
+                return;
+            }
+            
+            // Store step 1 data
+            signUpData.fullName = fullName;
+            signUpData.email = email;
+            signUpData.password = password;
+            
+            // Clear any previous alerts
+            clearAlert();
+            
+            // Move to step 2
+            updateSteps(2);
+            
+            // Scroll to top of form
+            document.querySelector('.auth-card').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function goToStep1() {
+            updateSteps(1);
+            clearAlert();
+            document.querySelector('.auth-card').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ========== Alert Helper ==========
+        function showAlert(message, type) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.textContent = message;
+            alertBox.className = 'alert ' + type;
+        }
+
+        function clearAlert() {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.className = 'alert';
+            alertBox.textContent = '';
+        }
+
+        // ========== Email Sign Up ==========
+        function handleSignUp(event) {
+            event.preventDefault();
+            
+            const stationId = document.getElementById('stationId').value.trim();
+            const stationLocation = document.getElementById('stationLocation').value.trim();
+            const termsCheck = document.getElementById('termsCheck').checked;
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Validation
+            if (!stationId) {
+                showAlert('Please enter a ground station ID.', 'error');
+                return;
+            }
+            
+            if (!termsCheck) {
+                showAlert('You must agree to the Terms of Service.', 'error');
+                return;
+            }
+            
+            // Combine all data
+            signUpData.stationId = stationId;
+            signUpData.stationLocation = stationLocation;
+            
+            // Show loading
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call (replace with actual backend endpoint)
+            setTimeout(() => {
+                // Store auth
+                const mockToken = 'st_' + Date.now() + '_' + Math.random().toString(36).substr(2);
+                localStorage.setItem('satTrackToken', mockToken);
+                localStorage.setItem('satTrackUser', JSON.stringify({
+                    fullName: signUpData.fullName,
+                    email: signUpData.email,
+                    stationId: signUpData.stationId,
+                    stationLocation: signUpData.stationLocation,
+                    createdAt: new Date().toISOString()
+                }));
+                
+                showAlert('Account created successfully! Redirecting...', 'success');
+                
+                // Redirect to dashboard
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+            }, 1800);
+        }
+
+        // ========== Google Sign Up ==========
+        function handleGoogleSignUp() {
+            // In production, integrate with Google OAuth 2.0
+            showAlert('Google Sign-Up: In production, this will redirect to Google OAuth.', 'success');
+            
+            setTimeout(() => {
+                const mockToken = 'st_google_' + Date.now();
+                localStorage.setItem('satTrackToken', mockToken);
+                localStorage.setItem('satTrackUser', JSON.stringify({
+                    fullName: 'Google User',
+                    email: 'user@gmail.com',
+                    provider: 'google',
+                    createdAt: new Date().toISOString()
+                }));
+                
+                window.location.href = 'dashboard.html';
+            }, 1200);
+        }
+
+        // ========== Init ==========
+        updateSteps(1);
+        
+        // Check existing session
+        (function checkSession() {
+            const token = localStorage.getItem('satTrackToken');
+            if (token) {
+                // Already signed in - uncomment in production:
+                // window.location.href = 'dashboard.html';
+            }
+        })();
+    </script>
+</body>
+</html>
