@@ -73,14 +73,14 @@
   ],
   "screenshots": [
     {
-      "src": "/screenshots/dashboard-desktop.png",
+      "src": "/icons/dashboard-desktop.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
       "label": "Main Dashboard View"
     },
     {
-      "src": "/screenshots/dashboard-mobile.png",
+      "src": "/icons/dashboard-mobile.png",
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow",
