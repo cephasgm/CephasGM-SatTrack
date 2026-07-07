@@ -664,7 +664,7 @@
 
         // ========== WEBSOCKET ==========
         function connect() {
-            const url = localStorage.getItem('wsUrl') || 'ws://localhost:3000';
+            const url = localStorage.getItem('wsUrl') || 'wss://cephasgm-sattrack.onrender.com';
             setStatus('connecting', 'Connecting...');
             try {
                 if (ws) ws.close();
