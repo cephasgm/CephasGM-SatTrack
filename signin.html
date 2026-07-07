@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0e27">
+    <meta name="description" content="CephasGM SatTrack - Sign In">
+    <title>CephasGM SatTrack | Sign In</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-deep: #060b1a;
+            --bg-panel: rgba(8, 14, 35, 0.95);
+            --text-primary: #e8ecf4;
+            --text-secondary: #8892b0;
+            --accent-cyan: #00d4ff;
+            --accent-green: #00e676;
+            --accent-red: #ff3d3d;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(0, 212, 255, 0.3);
+            --shadow-lg: 0 25px 70px rgba(0, 0, 0, 0.6);
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --transition-fast: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background - Earth from space */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop') center/cover no-repeat;
+            opacity: 0.10;
+            z-index: 0;
+            filter: saturate(0.5) brightness(0.6);
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(0, 180, 255, 0.05) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 70%, rgba(0, 200, 150, 0.04) 0%, transparent 55%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ========== Container ========== */
+        .auth-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 440px;
+            padding: 1.5rem;
+        }
+
+        /* ========== Card ========== */
+        .auth-card {
+            background: var(--bg-panel);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: -60%;
+            width: 220%;
+            height: 220%;
+            background: radial-gradient(circle at 50% 0%, rgba(0, 212, 255, 0.04) 0%, transparent 55%);
+            pointer-events: none;
+        }
+
+        /* ========== Logo & Brand ========== */
+        .brand-section {
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-wrap {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent-cyan), #0077cc);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #fff;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.35);
+            position: relative;
+            z-index: 1;
+        }
+
+        .orbit-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border: 1.5px solid rgba(0, 212, 255, 0.2);
+            border-radius: 50%;
+            animation: spin-slow 14s linear infinite;
+        }
+
+        @keyframes spin-slow {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .brand-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: #fff;
+        }
+
+        .brand-name span {
+            background: linear-gradient(135deg, var(--accent-cyan), #7ce8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand-subtitle {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+
+        /* ========== Heading ========== */
+        .auth-heading {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-subheading {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== Form ========== */
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper .input-icon {
+            position: absolute;
+            left: 14px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.6rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            color: #fff;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition-fast);
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.85rem;
+            z-index: 2;
+            padding: 4px;
+            transition: var(--transition-fast);
+        }
+
+        .password-toggle:hover {
+            color: #fff;
+        }
+
+        .forgot-link {
+            display: block;
+            text-align: right;
+            font-size: 0.78rem;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            margin-top: 0.3rem;
+            transition: var(--transition-fast);
+        }
+
+        .forgot-link:hover {
+            color: #7ce8ff;
+            text-decoration: underline;
+        }
+
+        /* ========== Buttons ========== */
+        .btn {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: inherit;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), #0077cc);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.2);
+            margin-top: 1rem;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 35px rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-google {
+            background: #fff;
+            color: #1a1a1a;
+            margin-top: 0.8rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-google:hover {
+            background: #f5f5f5;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .btn-google img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ========== Divider ========== */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .divider-text {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ========== Footer Text ========== */
+        .auth-footer {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-footer a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+
+        .auth-footer a:hover {
+            color: #7ce8ff;
+            text-decoration: underline;
+        }
+
+        /* ========== Alert Message ========== */
+        .alert {
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            margin-bottom: 1rem;
+            display: none;
+            text-align: left;
+            position: relative;
+            z-index: 1;
+        }
+
+        .alert.error {
+            display: block;
+            background: rgba(255, 61, 61, 0.1);
+            border: 1px solid rgba(255, 61, 61, 0.3);
+            color: #ff6b6b;
+        }
+
+        .alert.success {
+            display: block;
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            color: #69f0ae;
+        }
+
+        /* ========== Back Link ========== */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.82rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition-fast);
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 2rem 1.3rem;
+            }
+            .brand-name {
+                font-size: 1.2rem;
+            }
+            .auth-heading {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== Auth Container ========== -->
+    <div class="auth-container">
+        <div class="auth-card">
+            
+            <!-- Brand -->
+            <div class="brand-section">
+                <a href="index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <div class="logo-wrap">
+                    <div class="orbit-ring"></div>
+                    <div class="logo-icon">
+                        <i class="fas fa-satellite"></i>
+                    </div>
+                </div>
+                <div class="brand-name">CephasGM <span>SatTrack</span></div>
+                <div class="brand-subtitle">Ground Terminal System</div>
+            </div>
+
+            <!-- Heading -->
+            <h2 class="auth-heading">Welcome Back</h2>
+            <p class="auth-subheading">Sign in to access your ground terminal dashboard</p>
+
+            <!-- Alert -->
+            <div class="alert" id="alertBox"></div>
+
+            <!-- Email Sign In Form -->
+            <form id="signinForm" onsubmit="handleSignIn(event)">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="input-field" 
+                            placeholder="you@example.com" 
+                            required 
+                            autocomplete="email"
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="input-field" 
+                            placeholder="Enter your password" 
+                            required 
+                            autocomplete="current-password"
+                            minlength="6"
+                        >
+                        <button type="button" class="password-toggle" onclick="togglePassword()" title="Show password">
+                            <i class="fas fa-eye" id="toggleIcon"></i>
+                        </button>
+                    </div>
+                    <a href="#" class="forgot-link" onclick="forgotPassword(event)">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+            </form>
+
+            <!-- Divider -->
+            <div class="divider">
+                <div class="divider-line"></div>
+                <span class="divider-text">or continue with</span>
+                <div class="divider-line"></div>
+            </div>
+
+            <!-- Google Sign In -->
+            <button class="btn btn-google" onclick="handleGoogleSignIn()">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Sign in with Google
+            </button>
+
+            <!-- Footer -->
+            <p class="auth-footer">
+                Don't have an account? 
+                <a href="signup.html">Create one here</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // ========== Password Toggle ==========
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        // ========== Alert Helper ==========
+        function showAlert(message, type) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.textContent = message;
+            alertBox.className = 'alert ' + type;
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                alertBox.className = 'alert';
+                alertBox.textContent = '';
+            }, 5000);
+        }
+
+        // ========== Email Sign In ==========
+        function handleSignIn(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Basic validation
+            if (!email || !password) {
+                showAlert('Please fill in all fields.', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showAlert('Password must be at least 6 characters.', 'error');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call (replace with actual backend endpoint)
+            setTimeout(() => {
+                // Store auth token (in production, this comes from backend)
+                const mockToken = 'st_ ' + Date.now() + '_' + Math.random().toString(36).substr(2);
+                localStorage.setItem('satTrackToken', mockToken);
+                localStorage.setItem('satTrackUser', JSON.stringify({
+                    email: email,
+                    signedInAt: new Date().toISOString()
+                }));
+                
+                showAlert('Sign in successful! Redirecting...', 'success');
+                
+                // Redirect to dashboard
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 800);
+            }, 1500);
+        }
+
+        // ========== Google Sign In ==========
+        function handleGoogleSignIn() {
+            // In production, integrate with Google OAuth 2.0
+            // For now, we simulate the flow
+            showAlert('Google Sign-In: In production, this will redirect to Google OAuth.', 'success');
+            
+            // Simulate Google auth
+            setTimeout(() => {
+                const mockToken = 'st_google_' + Date.now();
+                localStorage.setItem('satTrackToken', mockToken);
+                localStorage.setItem('satTrackUser', JSON.stringify({
+                    email: 'user@gmail.com',
+                    provider: 'google',
+                    signedInAt: new Date().toISOString()
+                }));
+                
+                window.location.href = 'dashboard.html';
+            }, 1200);
+        }
+
+        // ========== Forgot Password ==========
+        function forgotPassword(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            
+            if (!email) {
+                showAlert('Please enter your email address first.', 'error');
+                return;
+            }
+            
+            showAlert('Password reset link sent to ' + email + ' (simulated)', 'success');
+        }
+
+        // ========== Check Existing Session ==========
+        (function checkSession() {
+            const token = localStorage.getItem('satTrackToken');
+            if (token) {
+                // User already signed in, redirect to dashboard
+                // Uncomment in production:
+                // window.location.href = 'dashboard.html';
+            }
+        })();
+    </script>
+</body>
+</html>
