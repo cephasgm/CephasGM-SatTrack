@@ -854,6 +854,15 @@
         // ========== START ==========
         initMap();
         connect();
-    </script>
+        </script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sattrack/sw.js')
+        .then(reg => console.log('SW registered:', reg.scope))
+        .catch(err => console.log('SW failed:', err));
+    });
+  }
+</script>
 </body>
 </html>
